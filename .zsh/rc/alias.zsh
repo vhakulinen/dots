@@ -10,6 +10,7 @@ alias l="ls -ail"
 #alias unldd="launchctl unload -w /Syste/Library/LaunchDaemons/"
 #alias reboot="shutdown -r now"
 #alias getbat="./.zsh/rc/getbat"
+alias pi="DISPLAY=pi:0"
 
 # do a du -hs on each dir on current path
 alias lsdir="for dir in *;do;if [ -d \$dir ];then;du -hsL \$dir;fi;done"

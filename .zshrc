@@ -43,4 +43,5 @@ if [ -x /usr/libexec/path_helper ]; then
 fi
 
 #eval `dircolors /home/ville/.config/dircolors.256dark`
-# export SHELL="rxvt-256color"
+eval `dircolors $HOME/.zsh/solarized_dircolors`
+export TERM=xterm-256color
