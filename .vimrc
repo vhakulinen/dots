@@ -40,6 +40,8 @@ let g:NERDSpaceDelims=1
 
 let g:localvimrc_sandbox = 0
 
+let g:airline_powerline_fonts = 1
+
 filetype on
 filetype plugin indent on
 
