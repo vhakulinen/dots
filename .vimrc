@@ -24,6 +24,8 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'alfredodeza/pytest.vim'
+NeoBundle 'Chiel92/vim-autoformat'
+NeoBundle 'fatih/vim-go'
 
 NeoBundle 'tomasr/molokai'
 "NeoBundle 'msmhrt/py3venv.vim'
@@ -32,6 +34,18 @@ NeoBundle 'tomasr/molokai'
 "NeoBundle 'lambdalisue/vim-python-virtualenv'
 
 call neobundle#end()
+
+
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 
 " let g:airline#extensions#tabline#enabled = 1
 let g:localvimrc_ask = 0
@@ -74,6 +88,7 @@ set cursorline
 
 set nowrap
 set listchars+=precedes:<,extends:>
+set foldmethod=marker
 
 
 " automatic bracets
@@ -132,6 +147,13 @@ function! InsertDebug()
     endif
 endfunction
 nnoremap <Leader>D :call InsertDebug()<CR>
+
+function! Run()
+    if &filetype=="go"
+        :GoRun
+    endif
+endfunction
+nnoremap <leader>p :call Run()<CR>
 
 
 " Disable arrow keys

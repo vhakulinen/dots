@@ -69,7 +69,7 @@ mpd_music_dir = "/home/sash/music"
 ## Note: colors can be nested.
 ##
 #
-song_list_format = "{%a - }{%t}|{$8%f$9}%r{$3(%l)$9}"
+song_list_format = "{%a - }{%t}|{$8%f$9}{$3(%l)$9}"
 #
 #song_library_format = "{%n - }{%t}|{%f}"
 #
@@ -130,7 +130,7 @@ song_status_format = "{(%l) }{%a - }{%t}|{%f}"
 #
 #statusbar_visibility = "yes"
 #
-fancy_scrolling = "yes"
+#fancy_scrolling = "yes"
 #
 #follow_now_playing_lyrics = "no"
 #
