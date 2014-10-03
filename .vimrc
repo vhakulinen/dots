@@ -24,7 +24,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'alfredodeza/pytest.vim'
-NeoBundle 'Chiel92/vim-autoformat'
+" NeoBundle 'Chiel92/vim-autoformat'
 NeoBundle 'fatih/vim-go'
 
 NeoBundle 'tomasr/molokai'
@@ -51,6 +51,7 @@ let g:ycm_semantic_triggers =  {
 let g:localvimrc_ask = 0
 autocmd BufWritePost *.py call Flake8()
 let g:NERDSpaceDelims=1
+let g:go_fmt_command = "goimports"
 
 let g:localvimrc_sandbox = 0
 
