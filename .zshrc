@@ -84,3 +84,8 @@ alias vi="vim"
 
 export GOPATH=~/go
 export PATH=$PATH:~/go/bin
+
+
+if [ $TERM = "st-256color" ]; then
+    stty erase ^H
+fi
