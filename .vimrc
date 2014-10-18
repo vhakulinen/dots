@@ -1,3 +1,4 @@
+" {{{ NeoBundle 
 if has('vim_starting')
     set nocompatible
 
@@ -8,7 +9,6 @@ call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shugo/neobundle.vim'
 
-"NeoBundle 'wincent/Command-T'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'vim-scripts/TaskList.vim'
 NeoBundle 'rking/ag.vim'
@@ -21,54 +21,24 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'embear/vim-localvimrc'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'alfredodeza/pytest.vim'
-" NeoBundle 'Chiel92/vim-autoformat'
+NeoBundle 'whatyouhide/vim-gotham'
 NeoBundle 'fatih/vim-go'
-
 NeoBundle 'tomasr/molokai'
-"NeoBundle 'msmhrt/py3venv.vim'
-
-"NeoBundle 'jmcantrell/vim-virtualenv'
-"NeoBundle 'lambdalisue/vim-python-virtualenv'
 
 call neobundle#end()
+" }}}
 
-
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
-
-" let g:airline#extensions#tabline#enabled = 1
-let g:localvimrc_ask = 0
-autocmd BufWritePost *.py call Flake8()
-let g:NERDSpaceDelims=1
-let g:go_fmt_command = "goimports"
-
-let g:localvimrc_sandbox = 0
-
-let g:airline_powerline_fonts = 1
+" {{{ General stuff
+let mapleader=","
 
 filetype on
 filetype plugin indent on
-
-let mapleader=","
-
-
-set laststatus=2
-
-set colorcolumn=80
-
 syntax on
 
+set laststatus=2
+set colorcolumn=80
 set number
 set title
 set wildmenu
@@ -80,42 +50,65 @@ set expandtab
 set noautowrite
 set noautowriteall
 set nomousehide
-
 set relativenumber
-
 set backspace=indent,eol,start
-
 set cursorline
-
 set nowrap
 set listchars+=precedes:<,extends:>
+
 set foldmethod=marker
 
+set background=dark
+colorscheme gotham
 
+" }}}
+
+" {{{ Plugin stuff 
+
+" You complete me
+let g:ycm_server_use_vim_stdout = 1
+let g:ycm_server_keep_logfiles = 1
+" NERD
+let g:NERDSpaceDelims=1
+" Go
+let g:go_fmt_command = "goimports"
+" Airline
+let g:airline_powerline_fonts = 1
+
+" Dunno if this really is needed...
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
+
+" }}}
+
+" {{{ Language spcific stuff
+" Python
+autocmd BufWritePost *.py call Flake8()
+" Add self as keyword in python files
+autocmd BufNewFile,BufRead *.py syn keyword pythonBuiltin self
+
+" }}}
+
+" {{{ Mappings
 " automatic bracets
 inoremap ( ()<Esc>:let leavechar=")"<CR>i
 inoremap { {}<Esc>:let leavechar="}"<CR>i
 inoremap [ []<Esc>:let leavechar="]"<CR>i
 inoremap ' ''<Esc>:let leavechar="'"<CR>i
 inoremap " ""<Esc>:let leavechar="\""<CR>i
-
 imap <C-j> <Esc>:exec "normal f" . leavechar<Cr>a
 
+inoremap <C-d> <Del>
 
-set background=dark
-colorscheme solarized
-" colorscheme wombat256mod
-" let g:airline_theme = 'solarized'
-
-
-if has("gui_running")
-    set guioptions=i
-    " set guifont=Monaco
-    set guifont=Source\ Code\ Pro\ Medium\ 10
-    colorscheme molokai
-    set background=dark
-endif
-
+nnoremap <space> za
 
 " tabnew
 nnoremap <Leader>.t :tabnew<CR>
@@ -124,8 +117,6 @@ nnoremap <Leader>.t :tabnew<CR>
 nnoremap <Leader>n :NERDTreeToggle<CR>
 " Tagbar
 nnoremap <Leader>l :TagbarToggle<CR>
-" CommandT
-"nnoremap <Leader>e :CommandT<CR>
 " CtrlP
 nnoremap <Leader>e :CtrlP<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
@@ -135,10 +126,28 @@ map <leader>t <Plug>TaskList
 " Exit from insert mode
 imap jj <ESC>
 
+" Disable arrow keys
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+" }}}
 
-" Add self as keyword in python files
-autocmd BufNewFile,BufRead *.py syn keyword pythonBuiltin self
+" {{{ GUI
+if has("gui_running")
+    set guioptions=i
+    " set guifont=Monaco
+    set guifont=Source\ Code\ Pro\ Medium\ 10
+    colorscheme molokai
+    set background=dark
+endif
+" }}}
 
+" {{{ Custom functionality (includes some mappigs)
 " Debuggin stuff
 function! InsertDebug()
     if &filetype=="python"
@@ -155,14 +164,4 @@ function! Run()
     endif
 endfunction
 nnoremap <leader>p :call Run()<CR>
-
-
-" Disable arrow keys
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
+" }}}"
