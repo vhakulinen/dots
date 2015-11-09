@@ -1,26 +1,43 @@
 " {{{ Plug
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
-Plug 'kien/ctrlp.vim'
+"Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/TaskList.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'bling/vim-airline'
 Plug 'whatyouhide/vim-gotham'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
 " Plug 'benekastah/neomake'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
 Plug 'romainl/Apprentice'
+Plug 'tomasr/molokai'
+Plug 'Valloric/YouCompleteMe'
 "Plug 'floobits/floobits-neovim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-speeddating'
+Plug 'jceb/vim-orgmode'
+Plug 'vim-scripts/utl.vim'
 
 call plug#end()
 " }}}
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+set runtimepath+=/usr/share/vim/vimfiles
+let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimTempFilesEnable = 1
+
 " {{{ Plugin stuff 
 " Go
 let g:go_fmt_command = "goimports"
+
+" FZF
+let g:fzf_layout = { 'up' : '20%' }
 
 " }}}
 
@@ -55,9 +72,9 @@ set listchars+=precedes:<,extends:>
 set foldmethod=marker
 
 set background=dark
-colorscheme gotham
+colorscheme molokai
 
-autocmd BufWritePost *.py call yapf#YAPF()
+"autocmd BufWritePost *.py call yapf#YAPF()
 
 " autocmd BufWritePost * :Neomake
 " }}}
@@ -82,9 +99,9 @@ nnoremap <Leader>l :TagbarToggle<CR>
 " nnoremap <Leader>e :FZF<CR>
 
 " CtrlP
-nnoremap <Leader>e :CtrlP<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>a :CtrlPBufTagAll<CR>
+nnoremap <Leader>e :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>a :Tags<CR>
 " Task lists
 map <leader>t <Plug>TaskList
 
@@ -112,5 +129,12 @@ noremap   <right>  <nop>
 tmap <c-w> <c-\><c-n><c-w>
 tmap <c-w><c-c> <c-\><c-n>
 au WinEnter term://* startinsert
+
+" Git
+noremap <leader>gst :Gstatus<CR>
+noremap <leader>gc :Gcommit<CR>
+
+" Java
+noremap <leader>ji :JavaImport<CR>
 
 " }}}
