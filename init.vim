@@ -10,41 +10,60 @@ Plug 'whatyouhide/vim-gotham'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
-" Plug 'benekastah/neomake'
+Plug 'benekastah/neomake'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
 Plug 'romainl/Apprentice'
 Plug 'tomasr/molokai'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
+Plug 'Shougo/deoplete.nvim'
 "Plug 'floobits/floobits-neovim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-speeddating'
-Plug 'jceb/vim-orgmode'
+"Plug 'tpope/vim-speeddating'
+"Plug 'jceb/vim-orgmode'
 Plug 'vim-scripts/utl.vim'
+Plug 'kassio/neoterm'
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'mhinz/vim-startify'
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 " }}}
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-set runtimepath+=/usr/share/vim/vimfiles
-let g:EclimCompletionMethod = 'omnifunc'
-let g:EclimTempFilesEnable = 1
+"set runtimepath+=/usr/share/vim/vimfiles
+"let g:EclimCompletionMethod = 'omnifunc'
+"let g:EclimTempFilesEnable = 1
+
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " {{{ Plugin stuff 
 " Go
-let g:go_fmt_command = "goimports"
+"let g:go_fmt_command = "goimports"
 
 " FZF
-let g:fzf_layout = { 'up' : '20%' }
+let g:fzf_layout = { 'down' : '20%' }
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
+" Neoterm
+let g:neoterm_size="10%"
+
+" Airline
+let g:airline_powerline_fonts=1
+
+" Neomake
+autocmd! BufWritePost * Neomake
 
 " }}}
 
 " {{{ General
 let mapleader=","
 
-filetype on
 filetype plugin indent on
 syntax on
 
@@ -70,6 +89,8 @@ set nowrap
 set listchars+=precedes:<,extends:>
 
 set foldmethod=marker
+
+set completeopt+=noinsert
 
 set background=dark
 colorscheme molokai
@@ -103,7 +124,12 @@ nnoremap <Leader>e :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>a :Tags<CR>
 " Task lists
-map <leader>t <Plug>TaskList
+map <leader>tt <Plug>TaskList
+
+" Neoterm
+nnoremap <leader>tb :T make<CR>
+nnoremap <leader>tc :Tclose<CR>
+nnoremap <leader>to :Topen<CR>
 
 " Terminal mode
 " tnoremap <c-q> <c-g><esc>
@@ -135,6 +161,5 @@ noremap <leader>gst :Gstatus<CR>
 noremap <leader>gc :Gcommit<CR>
 
 " Java
-noremap <leader>ji :JavaImport<CR>
-
+noremap <leader>i :JavaImport<CR>
 " }}}

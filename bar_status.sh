@@ -8,8 +8,18 @@ Clock() {
 }
 
 Music() {
-    STATUS=$(mpc status |grep -Po "[[a-z]*]")
+    #STATUS=$(mpc status |grep -Po "[[a-z]*]")
     CURRENT=$(mpc current)
+
+    if [ "$CURRENT" ]
+    then
+        if [ "`mpc |grep 'playing'`" ]
+        then
+            STATUS=""
+        else
+            STATUS=""
+        fi
+    fi
 
     echo -n "$STATUS $CURRENT"
 }
@@ -17,7 +27,7 @@ Music() {
 Volume() {
     VOL=$(amixer get Master |grep -Po "[0-9]*%")
 
-    echo -n "$VOL"
+    echo -n " $VOL"
 }
 
 # Print the clock
