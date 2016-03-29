@@ -19,6 +19,7 @@ Music() {
         else
             STATUS=""
         fi
+        CURRENT="`mpc status|grep -m1 -Po \" [0-9].* \"` $CURRENT"
     fi
 
     echo -n "$STATUS $CURRENT"
