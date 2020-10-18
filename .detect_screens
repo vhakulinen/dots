@@ -1,6 +1,0 @@
-#!/usr/bin/bash
-MODE=`xrandr |grep "DVI-0 connected" -c`
-
-if [ $MODE == "1" ]; then
-    /home/ville/.screenlayout/home_acer.sh
-fi

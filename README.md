@@ -1,4 +1,0 @@
-#DOTS !!
-
-
-vim rocks

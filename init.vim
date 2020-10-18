@@ -1,63 +1,155 @@
 " {{{ Plug
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin()
 
-"Plug 'kien/ctrlp.vim'
-Plug 'rking/ag.vim'
+" I know there is something to do...
 Plug 'vim-scripts/TaskList.vim'
+
+" Nice indent line
 Plug 'Yggdroot/indentLine'
-Plug 'bling/vim-airline'
-Plug 'whatyouhide/vim-gotham'
+
+" Gimme bar, be fancy
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Comment blocks of code
 Plug 'scrooloose/nerdcommenter'
+
+" Let there be search.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
+Plug 'rking/ag.vim'
+
+" Async make and linting!
 Plug 'benekastah/neomake'
-Plug 'fatih/vim-go'
+
+" I want to see some tags
 Plug 'majutsushi/tagbar'
-Plug 'romainl/Apprentice'
-Plug 'tomasr/molokai'
-"Plug 'Valloric/YouCompleteMe'
-Plug 'Shougo/deoplete.nvim'
-"Plug 'floobits/floobits-neovim'
+
+" Change surrounding stuff
 Plug 'tpope/vim-surround'
+
+" Git it
 Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-speeddating'
-"Plug 'jceb/vim-orgmode'
-Plug 'vim-scripts/utl.vim'
-Plug 'kassio/neoterm'
-Plug 'artur-shaik/vim-javacomplete2'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+
+" Auto completion
+"Plug 'Shougo/deoplete.nvim'
+" Deoplete Go plugin
+"Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Deoplete Python plugin
+"Plug 'zchee/deoplete-jedi'
+
+" More Go related stuff
+Plug 'fatih/vim-go'
+
+" Rust
+Plug 'rust-lang/rust.vim'
+"Plug 'racer-rust/vim-racer'
+
+" Nice starting page
 Plug 'mhinz/vim-startify'
-Plug 'flazz/vim-colorschemes'
+
+" Typescript
+Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'Quramy/tsuquyomi'
+" Plug 'clausreinke/typescript-tools.vim'
+"Plug 'leafgarland/typescript-vim'
+
+" vim proc is needed one of the typescript plugins
+"Plug 'Shougo/vimproc.vim'
+
+" Le' editor config
+Plug 'editorconfig/editorconfig-vim'
+" Give me automatic pairs please
+Plug 'jiangmiao/auto-pairs'
+
+" Color scheme
+Plug 'morhetz/gruvbox'
+" And even more
+"Plug 'flazz/vim-colorschemes'
+Plug 'tomasr/molokai'
+Plug 'romainl/Apprentice'
+Plug 'whatyouhide/vim-gotham'
+Plug 'altercation/vim-colors-solarized'
+Plug 'arcticicestudio/nord-vim'
+
+" Sorry, I might need nerdtree
+"Plug 'scrooloose/nerdtree'
+
+" Language Server
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'cespare/vim-toml'
+
+Plug 'posva/vim-vue'
+
+"Plug 'vhakulinen/gnvim-lsp'
+
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+
+
+"Plug 'terryma/vim-multiple-cursors'
+
+Plug 'neovim/nvim-lsp'
+
+Plug 'hashivim/vim-terraform'
+
+"Plug 'ayu-theme/ayu-vim'
 
 call plug#end()
 " }}}
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-"set runtimepath+=/usr/share/vim/vimfiles
-"let g:EclimCompletionMethod = 'omnifunc'
-"let g:EclimTempFilesEnable = 1
-
-"autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-" {{{ Plugin stuff 
+" {{{ Plugin stuff 
 " Go
-"let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "goimports"
 
 " FZF
-let g:fzf_layout = { 'down' : '20%' }
+let g:fzf_layout = { 'up' : '20%' }
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+
+"let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+"let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
+let $FZF_DEFAULT_OPTS=' --layout=reverse --margin=1,4'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = 20
+  let width = 120
+  let horizontal = float2nr(width / 2)
+  let vertical = 1
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
-
-" Neoterm
-let g:neoterm_size="10%"
+"let g:deoplete#enable_at_startup = 1
 
 " Airline
 let g:airline_powerline_fonts=1
 
 " Neomake
-autocmd! BufWritePost * Neomake
+autocmd! BufWritePost *.go Neomake
+
+let g:go_echo_go_info=0
+
+""let g:rustfmt_autosave = 1
+"let g:rustfmt_command = 'cargo +nightly fmt -- '
+"let g:rustfmt_fail_silently = 1
 
 " }}}
 
@@ -65,7 +157,7 @@ autocmd! BufWritePost * Neomake
 let mapleader=","
 
 filetype plugin indent on
-syntax on
+syntax enable
 
 set lazyredraw
 
@@ -74,10 +166,6 @@ set colorcolumn=80
 set number
 set title
 set wildmenu
-"set wildmenu=full
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
 set expandtab
 set noautowrite
 set noautowriteall
@@ -87,59 +175,91 @@ set backspace=indent,eol,start
 set cursorline
 set nowrap
 set listchars+=precedes:<,extends:>
+set inccommand=split
 
 set foldmethod=marker
 
-set completeopt+=noinsert
+"set completeopt+=noinsert
 
-set background=dark
-colorscheme molokai
+"let g:gruvbox_italic=1 " Set before loading gruvbox
+"set background=light
+"colorscheme Tomorrow
 
-"autocmd BufWritePost *.py call yapf#YAPF()
+if exists("g:gnvim")
 
-" autocmd BufWritePost * :Neomake
+    set background=dark
+    let g:nord_italic = 1
+    let g:nord_underline = 1
+    let g:nord_italic_comments = 1
+    let g:nord_cursor_line_number_background = 1
+    colorscheme nord
+
+    let ayucolor="light"
+    "colorscheme ayu
+
+    set guifont=Fira\ Code:h13
+    set linespace=4
+
+    "call gnvim#cursor_tooltip#load_style("/home/ville/.config/nvim/nord.tmTheme")
+    CursorTooltipStyle Nord
+
+    set guicursor+=a:blinkon640
+else
+    set background=dark
+    colorscheme gruvbox
+endif
+
+" Just PG things'
+"set noexpandtab
+"set copyindent
+"set preserveindent
+"set softtabstop=0
+"set shiftwidth=4
+"set tabstop=4
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+autocmd FileType html,javascript,javascript.jsx,typescript,typescript.tsx,css,scss,typescriptreact setlocal shiftwidth=2
+
+" Make stuff easier when just chillin'
+set mouse=a
+
+" Set wrap for quickfix
+augroup quickfix
+	autocmd!
+	autocmd FileType qf setlocal wrap
+augroup END
+
+autocmd FileType vue syntax sync fromstart
+
 " }}}
 
 " {{{ Mappings
-" automatic bracets
-inoremap ( ()<Esc>:let leavechar=")"<CR>i
-inoremap { {}<Esc>:let leavechar="}"<CR>i
-inoremap [ []<Esc>:let leavechar="]"<CR>i
-inoremap ' ''<Esc>:let leavechar="'"<CR>i
-inoremap " ""<Esc>:let leavechar="\""<CR>i
-imap <C-j> <Esc>:exec "normal f" . leavechar<Cr>a
 " exit from insert mode
 imap jj <esc>
 imap jk <esc>
-imap kj <esc>
 
-" TagBar
-nnoremap <Leader>l :TagbarToggle<CR>
+nnoremap <silent> <leader>n :noh<CR>
 
 " FZF
 " nnoremap <Leader>e :FZF<CR>
+nnoremap <silent> <Leader>e :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>a :Tags<CR>
+" For git files only
+nnoremap <silent> <leader>ge :GFiles<CR>
 
-" CtrlP
-nnoremap <Leader>e :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>a :Tags<CR>
 " Task lists
-map <leader>tt <Plug>TaskList
-
-" Neoterm
-nnoremap <leader>tb :T make<CR>
-nnoremap <leader>tc :Tclose<CR>
-nnoremap <leader>to :Topen<CR>
-
-" Terminal mode
-" tnoremap <c-q> <c-g><esc>
+map <silent> <leader>t <Plug>TaskList
 
 " space to open/close folds
 nnoremap <space> za
 
+" This is in muscle memory so might as well go with it
 inoremap <C-d> <Del>
-" tabnew
-nnoremap <Leader>.t :tabnew<CR>
+
+nnoremap <silent> <Leader>.t :tabnew<CR>
+
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
 
 " disable arrow keys
 inoremap  <up>     <nop>
@@ -157,9 +277,55 @@ tmap <c-w><c-c> <c-\><c-n>
 au WinEnter term://* startinsert
 
 " Git
-noremap <leader>gst :Gstatus<CR>
-noremap <leader>gc :Gcommit<CR>
+"noremap <leader>gst :Gstatus<CR>
+"noremap <leader>gc :Gcommit<CR>
 
-" Java
-noremap <leader>i :JavaImport<CR>
+"autocmd FileType typescript nnoremap <F3> :TsuDefinition<CR>
+"autocmd FileType typescript nnoremap <F4> :TsuGoBack<CR>
+
+"autocmd FileType go nnoremap <F3> :GoDef<CR>
+"autocmd FileType go nnoremap <F4> :GoDefPop<CR>
+
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
+" }}}
+
+" {{{ Language server
+
+let g:go_code_completion_enabled=0
+let g:go_doc_keywordprg_enabled=0
+
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+
+let $LD_LIBRARY_PATH='/home/ville/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib'
+let $GO111MODULE='on'
+
+autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype typescript,typescriptreact,javascript,javascriptreact setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype vue setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+lua << EOF
+local nvim_lsp = require'nvim_lsp'
+
+-- nvim_lsp.rls.setup{}
+nvim_lsp.rust_analyzer.setup{}
+nvim_lsp.tsserver.setup{}
+nvim_lsp.vuels.setup{}
+
+nvim_lsp.gopls.setup{
+  root_dir = nvim_lsp.util.root_pattern('go.mod');
+  log_level = 0;
+}
+
+EOF
+
 " }}}
