@@ -2,7 +2,7 @@
 call plug#begin()
 
 " I know there is something to do...
-Plug 'vim-scripts/TaskList.vim'
+"Plug 'vim-scripts/TaskList.vim'
 
 " Nice indent line
 Plug 'Yggdroot/indentLine'
@@ -20,23 +20,16 @@ Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
 
 " Async make and linting!
-Plug 'benekastah/neomake'
+"Plug 'benekastah/neomake'
 
 " I want to see some tags
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 
 " Change surrounding stuff
 Plug 'tpope/vim-surround'
 
 " Git it
 Plug 'tpope/vim-fugitive'
-
-" Auto completion
-"Plug 'Shougo/deoplete.nvim'
-" Deoplete Go plugin
-"Plug 'zchee/deoplete-go', { 'do': 'make'}
-" Deoplete Python plugin
-"Plug 'zchee/deoplete-jedi'
 
 " More Go related stuff
 Plug 'fatih/vim-go'
@@ -49,7 +42,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'mhinz/vim-startify'
 
 " Typescript
-Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'Quramy/tsuquyomi'
 " Plug 'clausreinke/typescript-tools.vim'
 "Plug 'leafgarland/typescript-vim'
@@ -67,9 +60,6 @@ Plug 'morhetz/gruvbox'
 " And even more
 "Plug 'flazz/vim-colorschemes'
 Plug 'tomasr/molokai'
-Plug 'romainl/Apprentice'
-Plug 'whatyouhide/vim-gotham'
-Plug 'altercation/vim-colors-solarized'
 Plug 'arcticicestudio/nord-vim'
 
 " Sorry, I might need nerdtree
@@ -83,7 +73,7 @@ Plug 'arcticicestudio/nord-vim'
 
 Plug 'cespare/vim-toml'
 
-Plug 'posva/vim-vue'
+"Plug 'posva/vim-vue'
 
 "Plug 'vhakulinen/gnvim-lsp'
 
@@ -93,6 +83,7 @@ Plug 'posva/vim-vue'
 "Plug 'terryma/vim-multiple-cursors'
 
 Plug 'neovim/nvim-lsp'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'hashivim/vim-terraform'
 
@@ -143,7 +134,7 @@ endfunction
 let g:airline_powerline_fonts=1
 
 " Neomake
-autocmd! BufWritePost *.go Neomake
+"autocmd! BufWritePost *.go Neomake
 
 let g:go_echo_go_info=0
 
@@ -194,14 +185,62 @@ if exists("g:gnvim")
     let g:nord_cursor_line_number_background = 1
     colorscheme nord
 
-    let ayucolor="light"
-    "colorscheme ayu
-
     set guifont=Fira\ Code:h13
     set linespace=4
 
     "call gnvim#cursor_tooltip#load_style("/home/ville/.config/nvim/nord.tmTheme")
-    CursorTooltipStyle Nord
+    "CursorTooltipStyle Nord
+
+    " TODO(ville): Check when this is merged: https://github.com/arcticicestudio/nord-vim/pull/253/files
+    hi TSError guifg=#bf616a ctermfg=131 guibg=NONE ctermbg=NONE gui=underline cterm=underline
+    hi TSPunctDelimiter guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSPunctBracket guifg=#eceff4 ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSPunctSpecial guifg=#eceff4 ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSConstant guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSConstBuiltin guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSConstMacro guifg=#8fbcbb ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSStringRegex guifg=#a3be8c ctermfg=144 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSString guifg=#a3be8c ctermfg=144 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSStringEscape guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSCharacter guifg=#a3be8c ctermfg=144 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSNumber guifg=#b48ead ctermfg=139 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSBoolean guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSFloat guifg=#b48ead ctermfg=139 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSAnnotation guifg=#d08770 ctermfg=173 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSAttribute guifg=#8fbcbb ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSNamespace guifg=#8FBCBB ctermfg=201 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSFuncBuiltin guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSFunction guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSFuncMacro guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSParameter guifg=#e5e9f0 ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSParameterReference guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSMethod guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSField guifg=#e5e9f0 ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSProperty guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSConstructor guifg=#8fbcbb ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSConditional guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSRepeat guifg=#81a1c1 ctermfg=139 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSLabel guifg=#88c0d0 ctermfg=110 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSKeyword guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSKeywordFunction guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSKeywordOperator guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSOperator guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSException guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSType guifg=#8fbcbb ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSTypeBuiltin guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSStructure guifg=#8FBCBB ctermfg=201 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSInclude guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSVariable guifg=#e5e9f0 ctermfg=255 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSVariableBuiltin guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSText guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSStrong guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSEmphasis guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSUnderline guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSTitle guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSLiteral guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSURI guifg=#D8DEE9 ctermfg=226 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSTag guifg=#81a1c1 ctermfg=109 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+    hi TSTagDelimiter guifg=#5c6370 ctermfg=241 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 
     set guicursor+=a:blinkon640
 else
@@ -209,13 +248,6 @@ else
     colorscheme gruvbox
 endif
 
-" Just PG things'
-"set noexpandtab
-"set copyindent
-"set preserveindent
-"set softtabstop=0
-"set shiftwidth=4
-"set tabstop=4
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 autocmd FileType html,javascript,javascript.jsx,typescript,typescript.tsx,css,scss,typescriptreact setlocal shiftwidth=2
 
@@ -314,18 +346,35 @@ autocmd Filetype typescript,typescriptreact,javascript,javascriptreact setlocal 
 autocmd Filetype vue setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 lua << EOF
-local nvim_lsp = require'nvim_lsp'
+local lspconfig = require'lspconfig'
 
 -- nvim_lsp.rls.setup{}
-nvim_lsp.rust_analyzer.setup{}
-nvim_lsp.tsserver.setup{}
-nvim_lsp.vuels.setup{}
+lspconfig.rust_analyzer.setup{}
+lspconfig.tsserver.setup{}
+lspconfig.vuels.setup{}
 
-nvim_lsp.gopls.setup{
-  root_dir = nvim_lsp.util.root_pattern('go.mod');
+lspconfig.gopls.setup{
+  root_dir = lspconfig.util.root_pattern('go.mod');
   log_level = 0;
 }
 
+EOF
+
+" }}}
+
+" {{{ Treesitter
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+  -- TODO(ville): Enable once this is working properly.
+  --indent = {
+  --  enable = true,
+  --},
+}
 EOF
 
 " }}}
