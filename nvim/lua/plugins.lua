@@ -38,7 +38,7 @@ return require('packer').startup(function()
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { { 'kyazdani42/nvim-web-devicons' }, 'shaunsingh/nord.nvim' },
+    requires = { 'kyazdani42/nvim-web-devicons', 'shaunsingh/nord.nvim' },
     config = get_config('lualine')
   }
 

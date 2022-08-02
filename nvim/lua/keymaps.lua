@@ -11,10 +11,6 @@ map('i', 'jk', '<esc>')
 
 map('n', '<leader>n', ':noh<CR>')
 
--- Lsp
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('i', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-
 
 -- Telescope
 map('n', '<leader>e', '<cmd>Telescope find_files<CR>')
@@ -24,8 +20,8 @@ map('n', '<space>', 'za')
 
 map('i', '<C-d>', '<Del>')
 
-map('c', '<c-p>', '<up>')
-map('c', '<c-n>', '<down>')
+map('c', '<c-p>', '<Up>', { silent = false })
+map('c', '<c-n>', '<Down>', { silent = false })
 
 -- Tabs
 map('n', '<leader>.t', ':tabnew<CR>')
@@ -41,3 +37,9 @@ map('n', '<A-9>', '9gt')
 
 -- Terminal mode
 map('t', '<c-w>', '<c-\\><c-n><c-w>')
+
+-- Diagnostics
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, opts)

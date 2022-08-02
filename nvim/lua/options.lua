@@ -36,7 +36,7 @@ opt.completeopt = 'menu,menuone,noselect'
 -- let g:nord_cursor_line_number_background = 1
 
 opt.background = 'dark'
-opt.guifont = 'FiraCode Nerd Font:h13'
+opt.guifont = 'FiraCode Nerd Font 13'
 opt.linespace = 4
 vim.cmd[[set guicursor+=a:blinkon640]]
 
