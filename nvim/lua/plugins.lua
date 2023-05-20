@@ -30,15 +30,13 @@ return require('packer').startup(function()
   -- Nice starting page
   use 'mhinz/vim-startify'
 
-  -- editor config
-  use 'editorconfig/editorconfig-vim'
   -- Automatic pairs please
   use 'jiangmiao/auto-pairs'
 
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', 'shaunsingh/nord.nvim' },
+    requires = { 'kyazdani42/nvim-web-devicons', 'shaunsingh/nord.nvim'  },
     config = get_config('lualine')
   }
 
@@ -47,9 +45,6 @@ return require('packer').startup(function()
     'shaunsingh/nord.nvim',
     config = get_config('nord'),
   }
-
-  -- Toml
-  use { 'cespare/vim-toml', ft = 'toml' }
 
   -- Code completion and lsp
   use {

@@ -71,13 +71,21 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>rf', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   --vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    buffer = bufnr,
+    callback = vim.lsp.buf.format
+  })
+
+
+  -- Disable semantic highlighting from LSP.
+  -- Remove once https://github.com/shaunsingh/nord.nvim/issues/134 is fixed.
+  client.server_capabilities.semanticTokensProvider = nil
 end
 
 -- Setup lspconfig.
 local lspconfig = require'lspconfig'
-local capabilities = require('cmp_nvim_lsp').update_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 lspconfig.rust_analyzer.setup{
   capabilities = capabilities,
