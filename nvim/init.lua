@@ -76,7 +76,7 @@ local plugins = {
     config = function()
       local npairs = require'nvim-autopairs'
       local Rule = require'nvim-autopairs.rule'
-      local cond = require 'nvim-autopairs.conds'
+      local cond = require'nvim-autopairs.conds'
 
       npairs.setup {
         enable_check_bracket_line = false
@@ -234,8 +234,11 @@ local plugins = {
             })
           end
 
-          -- Toggle inlay hints.
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            -- Enable inlay hints by default.
+            vim.lsp.inlay_hint.enable(true)
+
+            -- Toggle inlay hints.
             map('n', '<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
             end, 'toggle inlay hints')

@@ -3,6 +3,13 @@ vim.g.maplocalleader = ","
 
 local opt = vim.opt
 
+-- TODO(ville): listchars
+
+-- Decrease update time. Makes CursorHold happen faster.
+opt.updatetime = 500
+-- Decrease mapped sequence time. Makes which key popup sooner.
+opt.timeoutlen = 300
+
 opt.scrolloff = 4
 opt.colorcolumn = '80'
 opt.number = true
