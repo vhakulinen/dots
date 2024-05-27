@@ -1,39 +1,21 @@
 vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
 local opt = vim.opt
 
-
--- filetype plugin indent on
--- syntax enable
-
--- set lazyredraw
-
+opt.scrolloff = 4
 opt.colorcolumn = '80'
 opt.number = true
 opt.title = true
---
--- set wildmenu
 opt.expandtab = true
--- set noautowrite
--- set noautowriteall
--- set nomousehide
 opt.relativenumber = true
--- set backspace=indent,eol,start
 opt.cursorline = true
 opt.wrap = false
--- set listchars+=precedes:<,extends:>
 opt.inccommand = 'split'
 opt.foldmethod = 'marker'
 opt.mouse = 'a'
 
 opt.completeopt = 'menu,menuone,noselect'
-
-
--- set background=dark
--- let g:nord_italic = 1
--- let g:nord_underline = 1
--- let g:nord_italic_comments = 1
--- let g:nord_cursor_line_number_background = 1
 
 opt.background = 'dark'
 opt.guifont = 'FiraCode Nerd Font 13'
@@ -46,14 +28,56 @@ opt.expandtab = true
 opt.shiftwidth = 4
 opt.smarttab = true
 
-vim.cmd[[
-  autocmd FileType lua,html,javascript,javascript.jsx,typescript,typescript.tsx,css,scss,typescriptreact setlocal shiftwidth=2
-]]
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Adjust shiftwidth for certain filetypes',
+  group = vim.api.nvim_create_augroup('my-quickfix-shiftwidth', { clear = true}),
+  pattern = {
+    'lua',
+    'html',
+    'javascript',
+    'javascript.jsx',
+    'typescript',
+    'typescript.tsx',
+    'css',
+    'scss',
+    'typescriptreact',
+  },
+  callback = function()
+    vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' })
+  end
+})
 
--- Set wrap for quickfix
-vim.cmd[[
-augroup quickfix
-  autocmd!
-  autocmd FileType qf setlocal wrap
-augroup END
-]]
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Adjust wrap property for quickfix',
+  group = vim.api.nvim_create_augroup('my-quickfix-options', { clear = true }),
+  pattern = 'gf',
+  callback = function()
+    vim.api.nvim_set_option_value('wrap', true, { scope = 'local' })
+  end
+})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking text',
+  group = vim.api.nvim_create_augroup('my-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('UIEnter', {
+  desc = 'GUI specific configuration',
+  group = vim.api.nvim_create_augroup('my-uienter', { clear = true }),
+  callback = function()
+    local chanid = vim.v.event['chan']
+    local chan = vim.api.nvim_get_chan_info(chanid)
+    if chan.client and chan.client.name ~= 'gnvim' then
+      return
+    end
+
+    local gnvim = require('gnvim')
+
+    -- Increase/decrease font.
+    vim.keymap.set('n', '<c-+>', function() gnvim.font_size(1) end, { desc = 'Increase font size'})
+    vim.keymap.set('n', '<c-->', function() gnvim.font_size(-1) end, { desc = 'Decrease font size'})
+  end
+})
