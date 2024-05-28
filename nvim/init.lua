@@ -23,6 +23,16 @@ local plugins = {
   -- Web icons.
   { 'nvim-tree/nvim-web-devicons', lazy = true },
 
+  { -- Colorscheme
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    init = function()
+      vim.cmd[[colorscheme tokyonight]]
+    end
+  },
+
   -- Change surrounding characters.
   'tpope/vim-surround',
 
@@ -81,6 +91,7 @@ local plugins = {
       npairs.setup {
         enable_check_bracket_line = false
       }
+
 
       -- Insert '(' after selecting function or method item.
       local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
