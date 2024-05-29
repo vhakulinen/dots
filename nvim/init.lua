@@ -92,10 +92,11 @@ local plugins = {
       'nvim-telescope/telescope-ui-select.nvim',
     },
     config = function()
-      local actions = require('telescope.actions')
-      local builtin = require('telescope.builtin')
+      local actions = require'telescope.actions'
+      local builtin = require'telescope.builtin'
+      local ts = require'telescope'
 
-      require('telescope').setup{
+      ts.setup{
         defaults = {
           mappings = {
             i = {
@@ -104,8 +105,15 @@ local plugins = {
               ['<esc>'] = actions.close
             }
           }
-        }
+        },
+        extensions = {
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
+        },
       }
+
+      ts.load_extension'ui-select'
 
       local map = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { desc = 'Telescope: ' .. desc })
