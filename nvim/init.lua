@@ -116,7 +116,7 @@ local plugins = {
       map('<leader>sb', builtin.buffers, 'search buffers')
       map('<leader>sg', builtin.live_grep, 'search by grep')
       map('<leader>sw', builtin.grep_string, 'search string under cursor')
-      map('<leader>sd', builtin.grep_string, 'search diagnostics')
+      map('<leader>sd', builtin.diagnostics, 'search diagnostics')
     end
   },
 
