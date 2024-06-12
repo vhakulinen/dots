@@ -156,8 +156,11 @@ local plugins = {
 
           -- Format using lsp
           if client and client.server_capabilities.documentFormattingProvider then
+            local format_augroup = vim.api.nvim_create_augroup('my-lsp-buf-format', {})
+            vim.api.nvim_clear_autocmds({ group = format_augroup, buffer = event.buf })
+
             vim.api.nvim_create_autocmd('BufWritePre', {
-              group = vim.api.nvim_create_augroup('my-lsp-buf-format', { clear = true }),
+              group = format_augroup,
               buffer = event.buf,
               callback = function()
                 vim.lsp.buf.format()
