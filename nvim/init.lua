@@ -69,17 +69,12 @@ local plugins = {
   { -- Which key.
     'folke/which-key.nvim',
     event = 'VeryLazy',
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-    end,
     opts = {
+      preset = 'modern',
+      notify = false,
       plugins = {
         registers = false,
       },
-      window = {
-        position = 'top'
-      }
     }
   },
 
@@ -230,7 +225,7 @@ local plugins = {
       lspconfig.rust_analyzer.setup {
         capabilities = capabilities,
       }
-      lspconfig.tsserver.setup {
+      lspconfig.ts_ls.setup {
         capabilities = capabilities,
       }
       lspconfig.gopls.setup {
