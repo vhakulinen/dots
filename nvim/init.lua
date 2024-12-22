@@ -85,6 +85,7 @@ local plugins = {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     config = function()
       local actions = require 'telescope.actions'
@@ -109,6 +110,7 @@ local plugins = {
       }
 
       ts.load_extension 'ui-select'
+      ts.load_extension 'fzf'
 
       local map = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { desc = 'Telescope: ' .. desc })
