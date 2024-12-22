@@ -2,8 +2,8 @@
 -- Some of these are sourced from kickstart.nvim: https://github.com/nvim-lua/kickstart.nvim
 --
 
-require'options'
-require'keymaps'
+require 'options'
+require 'keymaps'
 
 -- Install lazy.nvim, if needed.
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -29,7 +29,7 @@ local plugins = {
     priority = 1000,
     opts = {},
     init = function()
-      vim.cmd[[colorscheme tokyonight]]
+      vim.cmd [[colorscheme tokyonight]]
     end
   },
 
@@ -45,15 +45,15 @@ local plugins = {
   -- Automatic pairs.
   'jiangmiao/auto-pairs',
 
-  { -- Progress messages.
+  {                 -- Progress messages.
     'j-hui/fidget.nvim',
     tag = 'v1.4.1', -- NOTE(ville): No stable branch available
-    opts = { },
+    opts = {},
   },
 
   { -- Treesitter.
     'nvim-treesitter/nvim-treesitter',
-    opts = { }
+    opts = {}
   },
 
   { -- Rust.
@@ -92,11 +92,11 @@ local plugins = {
       'nvim-telescope/telescope-ui-select.nvim',
     },
     config = function()
-      local actions = require'telescope.actions'
-      local builtin = require'telescope.builtin'
-      local ts = require'telescope'
+      local actions = require 'telescope.actions'
+      local builtin = require 'telescope.builtin'
+      local ts = require 'telescope'
 
-      ts.setup{
+      ts.setup {
         defaults = {
           mappings = {
             i = {
@@ -113,7 +113,7 @@ local plugins = {
         },
       }
 
-      ts.load_extension'ui-select'
+      ts.load_extension 'ui-select'
 
       local map = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { desc = 'Telescope: ' .. desc })
@@ -130,6 +130,19 @@ local plugins = {
 
   { -- LSP
     'neovim/nvim-lspconfig',
+    dependencies = {
+      {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+    },
     config = function()
       -- Setup LSP keymaps and config on attach.
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -213,19 +226,25 @@ local plugins = {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      local lspconfig = require'lspconfig'
-      lspconfig.rust_analyzer.setup{
+      local lspconfig = require 'lspconfig'
+      lspconfig.rust_analyzer.setup {
         capabilities = capabilities,
       }
-      lspconfig.tsserver.setup{
+      lspconfig.tsserver.setup {
         capabilities = capabilities,
       }
-      lspconfig.gopls.setup{
+      lspconfig.gopls.setup {
         capabilities = capabilities,
         root_dir = lspconfig.util.root_pattern('go.mod'),
         log_level = 0,
       }
-      lspconfig.gdscript.setup{
+      lspconfig.clangd.setup {
+        capabilities = capabilities,
+      }
+      lspconfig.gdscript.setup {
+        capabilities = capabilities,
+      }
+      lspconfig.lua_ls.setup {
         capabilities = capabilities,
       }
     end
@@ -244,8 +263,8 @@ local plugins = {
       'saadparwaiz1/cmp_luasnip',
     },
     config = function()
-      local cmp = require'cmp'
-      local luasnip = require'luasnip'
+      local cmp = require 'cmp'
+      local luasnip = require 'luasnip'
 
       cmp.setup({
         mapping = {
@@ -274,7 +293,7 @@ local plugins = {
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'buffer', keyword_length = 3 },
+          { name = 'buffer',  keyword_length = 3 },
         }),
         snippet = {
           expand = function(args)
