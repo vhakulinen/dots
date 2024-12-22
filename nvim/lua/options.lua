@@ -86,5 +86,50 @@ vim.api.nvim_create_autocmd('UIEnter', {
     -- Increase/decrease font.
     vim.keymap.set('n', '<c-+>', function() gnvim.font_size(1) end, { desc = 'Increase font size'})
     vim.keymap.set('n', '<c-->', function() gnvim.font_size(-1) end, { desc = 'Decrease font size'})
+
+    local setup = function()
+      gnvim.setup({
+        popupmenu = {
+          kinds = {
+            Text = gnvim.popupmenu.kind("󰉿 Text", "LspKindText"),
+            Method = gnvim.popupmenu.kind("󰆧 Method", "LspKindMethod"),
+            Function = gnvim.popupmenu.kind("󰊕 Function", "LspKindFunction"),
+            Constructor = gnvim.popupmenu.kind(" Constructor", "LspKindConstructor"),
+            Field = gnvim.popupmenu.kind("󰜢 Field", "LspKindField"),
+            Variable = gnvim.popupmenu.kind("󰀫 Variable", "LspKindVariable"),
+            Class = gnvim.popupmenu.kind("󰠱 Class", "LspKindClass"),
+            Interface = gnvim.popupmenu.kind(" Interface", "LspKindInterface"),
+            Module = gnvim.popupmenu.kind(" Module", "LspKindModule"),
+            Property = gnvim.popupmenu.kind("󰜢 Property", "LspKindProperty"),
+            Unit = gnvim.popupmenu.kind("󰑭 Unit", "LspKindUnit"),
+            Value = gnvim.popupmenu.kind("󰎠 Value", "LspKindValue"),
+            Enum = gnvim.popupmenu.kind(" Enum", "LspKindEnum"),
+            Keyword = gnvim.popupmenu.kind("󰌋 Keyword", "LspKindKeyword"),
+            Snippet = gnvim.popupmenu.kind(" Snippet", "LspKindSnippet"),
+            Color = gnvim.popupmenu.kind("󰏘 Color", "LspKindColor"),
+            File = gnvim.popupmenu.kind("󰈙 File", "LspKindFile"),
+            Reference = gnvim.popupmenu.kind("󰈇 Reference", "LspKindReference"),
+            Folder = gnvim.popupmenu.kind("󰉋 Folder", "LspKindFolder"),
+            EnumMember = gnvim.popupmenu.kind(" EnumMember", "LspKindEnumMember"),
+            Constant = gnvim.popupmenu.kind("󰏿 Constant", "LspKindConstant"),
+            Struct = gnvim.popupmenu.kind("󰙅 Struct", "LspKindStruct"),
+            Event = gnvim.popupmenu.kind(" Event", "LspKindEvent"),
+            Operator = gnvim.popupmenu.kind("󰆕 Operator", "LspKindOperator"),
+            TypeParameter = gnvim.popupmenu.kind("TypeParameter", "LspKindTypeParameter"),
+          },
+        }
+      })
+    end
+
+    setup()
+
+    vim.api.nvim_create_autocmd({'ColorScheme'}, {
+      desc = 'Colorscheme dependent gnvim setup',
+      group = vim.api.nvim_create_augroup('gnvim-setup', { clear = true }),
+      callback = function()
+        setup()
+      end,
+    })
   end
 })
+
