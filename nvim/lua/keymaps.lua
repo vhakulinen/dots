@@ -30,3 +30,7 @@ vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Diagnosti
 vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Diagnostics: goto prev' })
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Diagnostics: goto next' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Diagnostics: add to location list' })
+
+-- Exec lua
+vim.keymap.set('n', '<leader>x', ':.lua<CR>', { desc = 'Lua: execute current line' })
+vim.keymap.set('v', '<leader>x', ':lua<CR>', { desc = 'Lua: execute current selection' })
