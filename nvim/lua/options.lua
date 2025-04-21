@@ -27,7 +27,7 @@ opt.completeopt = 'menu,menuone,noselect'
 opt.background = 'dark'
 opt.guifont = 'FiraCode Nerd Font 13'
 opt.linespace = 4
-vim.cmd[[set guicursor+=a:blinkon640]]
+vim.cmd [[set guicursor+=a:blinkon640]]
 
 opt.tabstop = 4
 opt.softtabstop = 0
@@ -37,7 +37,7 @@ opt.smarttab = true
 
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Adjust shiftwidth for certain filetypes',
-  group = vim.api.nvim_create_augroup('my-quickfix-shiftwidth', { clear = true}),
+  group = vim.api.nvim_create_augroup('my-quickfix-shiftwidth', { clear = true }),
   pattern = {
     'lua',
     'html',
@@ -84,8 +84,8 @@ vim.api.nvim_create_autocmd('UIEnter', {
     local gnvim = require('gnvim')
 
     -- Increase/decrease font.
-    vim.keymap.set('n', '<c-+>', function() gnvim.font_size(1) end, { desc = 'Increase font size'})
-    vim.keymap.set('n', '<c-->', function() gnvim.font_size(-1) end, { desc = 'Decrease font size'})
+    vim.keymap.set('n', '<c-+>', function() gnvim.font_size(1) end, { desc = 'Increase font size' })
+    vim.keymap.set('n', '<c-->', function() gnvim.font_size(-1) end, { desc = 'Decrease font size' })
 
     local setup = function()
       gnvim.setup({
@@ -115,7 +115,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
             Struct = gnvim.popupmenu.kind("󰙅 Struct", "LspKindStruct"),
             Event = gnvim.popupmenu.kind(" Event", "LspKindEvent"),
             Operator = gnvim.popupmenu.kind("󰆕 Operator", "LspKindOperator"),
-            TypeParameter = gnvim.popupmenu.kind("TypeParameter", "LspKindTypeParameter"),
+            TypeParameter = gnvim.popupmenu.kind(" TypeParameter", "LspKindTypeParameter"),
           },
         }
       })
@@ -123,7 +123,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
 
     setup()
 
-    vim.api.nvim_create_autocmd({'ColorScheme'}, {
+    vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
       desc = 'Colorscheme dependent gnvim setup',
       group = vim.api.nvim_create_augroup('gnvim-setup', { clear = true }),
       callback = function()
@@ -132,4 +132,3 @@ vim.api.nvim_create_autocmd('UIEnter', {
     })
   end
 })
-
