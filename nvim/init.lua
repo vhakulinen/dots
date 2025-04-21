@@ -223,27 +223,18 @@ local plugins = {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      local lspconfig = require 'lspconfig'
-      lspconfig.rust_analyzer.setup {
+      vim.lsp.config('*', {
         capabilities = capabilities,
-      }
-      lspconfig.ts_ls.setup {
-        capabilities = capabilities,
-      }
-      lspconfig.gopls.setup {
-        capabilities = capabilities,
-        root_dir = lspconfig.util.root_pattern('go.mod'),
-        log_level = 0,
-      }
-      lspconfig.clangd.setup {
-        capabilities = capabilities,
-      }
-      lspconfig.gdscript.setup {
-        capabilities = capabilities,
-      }
-      lspconfig.lua_ls.setup {
-        capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable({
+        'rust_analyzer',
+        'ts_ls',
+        'gopls',
+        'clangd',
+        'gdscript',
+        'lua_ls',
+        'ruff',
+      })
     end
   },
 
