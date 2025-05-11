@@ -22,7 +22,7 @@ opt.inccommand = 'split'
 opt.foldmethod = 'marker'
 opt.mouse = 'a'
 
-opt.completeopt = 'menu,menuone,noselect'
+opt.completeopt = 'menu,menuone,noselect,fuzzy'
 
 opt.background = 'dark'
 opt.guifont = 'FiraCode Nerd Font 13'
@@ -34,6 +34,8 @@ opt.softtabstop = 0
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.smarttab = true
+
+vim.diagnostic.config({ virtual_lines = true })
 
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Adjust shiftwidth for certain filetypes',
