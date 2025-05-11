@@ -48,7 +48,11 @@ local plugins = {
   {                 -- Progress messages.
     'j-hui/fidget.nvim',
     tag = 'v1.4.1', -- NOTE(ville): No stable branch available
-    opts = {},
+    opts = {
+      notification = {
+        override_vim_notify = true,
+      }
+    },
   },
 
   { -- Treesitter.
