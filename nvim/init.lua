@@ -268,8 +268,8 @@ local plugins = {
 
           ['<C-e>'] = cmp.mapping.close(),
 
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-          ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>'] = cmp.mapping.confirm(),
+          ['<C-Space>'] = cmp.mapping.confirm(),
 
           ['<C-l>'] = cmp.mapping(function()
             if luasnip.expand_or_locally_jumpable() then
