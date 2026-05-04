@@ -22,7 +22,8 @@ opt.inccommand = 'split'
 opt.foldmethod = 'marker'
 opt.mouse = 'a'
 
-opt.completeopt = 'menu,menuone,noselect,fuzzy'
+opt.completeopt = 'menu,menuone,noselect,popup,fuzzy'
+opt.autocomplete = true
 
 opt.background = 'dark'
 opt.guifont = 'FiraCode Nerd Font 13'
@@ -35,6 +36,9 @@ opt.expandtab = true
 opt.shiftwidth = 4
 opt.smarttab = true
 
+opt.ignorecase = true
+opt.smartcase = true
+
 vim.diagnostic.config({ virtual_lines = true })
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -44,24 +48,14 @@ vim.api.nvim_create_autocmd('FileType', {
     'lua',
     'html',
     'javascript',
-    'javascript.jsx',
     'typescript',
-    'typescript.tsx',
+    'typescriptreact',
+    'javascriptreact',
     'css',
     'scss',
-    'typescriptreact',
   },
-  callback = function()
-    vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' })
-  end
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'Adjust wrap property for quickfix',
-  group = vim.api.nvim_create_augroup('my-quickfix-options', { clear = true }),
-  pattern = 'gf',
-  callback = function()
-    vim.api.nvim_set_option_value('wrap', true, { scope = 'local' })
+  callback = function(evt)
+    vim.bo[evt.buf].shiftwidth = 2
   end
 })
 
@@ -70,7 +64,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('my-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
-  end,
+  end
 })
 
 vim.api.nvim_create_autocmd('UIEnter', {
@@ -130,7 +124,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
       group = vim.api.nvim_create_augroup('gnvim-setup', { clear = true }),
       callback = function()
         setup()
-      end,
+      end
     })
   end
 })
